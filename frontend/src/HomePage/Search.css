@@ -1,0 +1,44 @@
+.search-section{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+
+
+}
+
+.search-bar input{
+    width: 350px;
+    height: 30px;
+    color: #24292e;
+    flex: 1 1;
+    font-size: 16px;
+    transition: 0.6s;
+
+}
+.search-bar input:hover{
+   transform: scale(1.05)
+
+}
+
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: teal;
+    border-radius: 4px;
+    height: 36px;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    color: white;
+    transition: 0.5s;
+
+}
+
+.button:hover{
+   background-color: rgb(1, 99, 99);
+   transform: scale(1.07);
+}
