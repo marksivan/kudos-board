@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql" // or "sqlite", "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -11,14 +11,14 @@ model Board {
   id      Int     @id @default(autoincrement())
   title   String
   cards   Card[]
+  createdAt DateTime @default(now())
 }
 
 model Card {
   id        Int     @id @default(autoincrement())
   message   String
+  gifUrl    String?     // URL of the selected GIF (optional)
   board     Board   @relation(fields: [boardId], references: [id])
   boardId   Int
+  createdAt DateTime @default(now())
 }
-
-
-
