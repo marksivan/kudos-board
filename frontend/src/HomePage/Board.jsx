@@ -4,7 +4,8 @@ function Board({ board, onViewBoard, onDeleteBoard }) {
   return (
     <div className="board">
       <div className="board-image">
-        <img src="https://picsum.photos/200/300?random=217" alt={board.title} />
+
+        <img src={board.image} alt={board.title} />
       </div>
 
       <div className="board-message">

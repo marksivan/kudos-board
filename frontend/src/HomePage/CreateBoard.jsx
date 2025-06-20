@@ -22,13 +22,9 @@ export default function CreateBoard({ onBoardCreated }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="New board title"
-      />
-      <button type="submit">Create Board</button>
-    </form>
+    <div className='create-board'>
+      <button onSubmit={handleSubmit}  type="submit">Create Board</button>
+    </div>
+
   );
 }
