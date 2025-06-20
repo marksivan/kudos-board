@@ -10,48 +10,108 @@ import boardsData from "../data/data.js";
 export default function HomePage() {
   const [boards, setBoards] = useState(boardsData);
   const [filteredBoards, setFilteredBoards] = useState(boardsData);
-  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Apply both search and category filters
+  const applyFilters = (
+    searchTerm = searchQuery,
+    category = activeCategory
+  ) => {
+    let filtered = [...boards];
+
+    // Apply category filter first
+    if (category !== "All") {
+      if (category === "Recent") {
+        // Show the 3 most recently added boards (assuming higher IDs are more recent)
+        filtered = filtered.sort((a, b) => b.id - a.id).slice(0, 3);
+      } else {
+        // Filter by category (case-insensitive, handle spaces)
+        filtered = filtered.filter((board) => {
+          const boardCategory = board.category
+            .toLowerCase()
+            .replace(/\s+/g, "");
+          const filterCategory = category.toLowerCase().replace(/\s+/g, "");
+          return boardCategory === filterCategory;
+        });
+      }
+    }
+
+    // Apply search filter
+    if (searchTerm.trim() !== "") {
+      filtered = filtered.filter((board) =>
+        board.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    setFilteredBoards(filtered);
+  };
 
   // refresh list after creating a new board
   const addBoard = (newBoard) => {
-    setBoards((prev) => [newBoard, ...prev]);
-    // If search is not active, also update filtered boards
-    if (!isSearchActive) {
-      setFilteredBoards((prev) => [newBoard, ...prev]);
+    const updatedBoards = [newBoard, ...boards];
+    setBoards(updatedBoards);
+
+    // Reapply filters with updated boards
+    let filtered = [...updatedBoards];
+
+    // Apply category filter
+    if (activeCategory !== "All") {
+      if (activeCategory === "Recent") {
+        filtered = filtered.sort((a, b) => b.id - a.id).slice(0, 3);
+      } else {
+        filtered = filtered.filter((board) => {
+          const boardCategory = board.category
+            .toLowerCase()
+            .replace(/\s+/g, "");
+          const filterCategory = activeCategory
+            .toLowerCase()
+            .replace(/\s+/g, "");
+          return boardCategory === filterCategory;
+        });
+      }
     }
+
+    // Apply search filter
+    if (searchQuery.trim() !== "") {
+      filtered = filtered.filter((board) =>
+        board.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    setFilteredBoards(filtered);
   };
 
   // remove board from state after deletion
   const deleteBoard = (boardId) => {
-    setBoards((prev) => prev.filter((board) => board.id !== boardId));
+    const updatedBoards = boards.filter((board) => board.id !== boardId);
+    setBoards(updatedBoards);
     setFilteredBoards((prev) => prev.filter((board) => board.id !== boardId));
   };
 
   // handle search functionality
-  const handleSearch = (searchQuery) => {
-    if (searchQuery.trim() === "") {
-      setFilteredBoards(boards);
-      setIsSearchActive(false);
-    } else {
-      const filtered = boards.filter((board) =>
-        board.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredBoards(filtered);
-      setIsSearchActive(true);
-    }
+  const handleSearch = (searchTerm) => {
+    setSearchQuery(searchTerm);
+    applyFilters(searchTerm, activeCategory);
   };
 
   // handle clear search
   const handleClearSearch = () => {
-    setFilteredBoards(boards);
-    setIsSearchActive(false);
+    setSearchQuery("");
+    applyFilters("", activeCategory);
+  };
+
+  // handle category filtering
+  const handleCategoryFilter = (category) => {
+    setActiveCategory(category);
+    applyFilters(searchQuery, category);
   };
 
   return (
     <div>
       <Header />
       <Search onSearch={handleSearch} onClear={handleClearSearch} />
-      <Categories />
+      <Categories onCategoryFilter={handleCategoryFilter} />
       <CreateBoard onBoardCreated={addBoard} />
       <BoardList boards={filteredBoards} onDeleteBoard={deleteBoard} />
       <Footer />
