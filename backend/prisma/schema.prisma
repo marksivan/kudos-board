@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // or "sqlite", "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Board {
+  id      Int     @id @default(autoincrement())
+  title   String
+  cards   Card[]
+}
+
+model Card {
+  id        Int     @id @default(autoincrement())
+  message   String
+  board     Board   @relation(fields: [boardId], references: [id])
+  boardId   Int
+}
+
+
+
