@@ -1,27 +1,14 @@
-import Board from './Board'
-import './BoardList.css'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-function BoardList(){
-    return(
-        <div className="board-list">
-            <Board />
-            <Board />
-            <Board />
-            <Board />
-            <Board />
-            <Board />
-            <Board />
-            <Board />
-
-
-
-
-
-
-
-        </div>
-    )
- }
-
-
- export default BoardList
+export default function BoardList({ boards }) {
+  return (
+    <ul>
+      {boards.map(board => (
+        <li key={board.id}>
+          <Link to={`/boards/${board.id}`}>{board.title}</Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
