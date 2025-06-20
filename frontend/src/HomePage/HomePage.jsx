@@ -23,8 +23,8 @@ export default function HomePage() {
     // Apply category filter first
     if (category !== "All") {
       if (category === "Recent") {
-        // Show the 3 most recently added boards (assuming higher IDs are more recent)
-        filtered = filtered.sort((a, b) => b.id - a.id).slice(0, 3);
+        // Show the 6 most recently added boards (assuming higher IDs are more recent)
+        filtered = filtered.sort((a, b) => b.id - a.id).slice(0, 6);
       } else {
         // Filter by category (case-insensitive, handle spaces)
         filtered = filtered.filter((board) => {
@@ -58,7 +58,7 @@ export default function HomePage() {
     // Apply category filter
     if (activeCategory !== "All") {
       if (activeCategory === "Recent") {
-        filtered = filtered.sort((a, b) => b.id - a.id).slice(0, 3);
+        filtered = filtered.sort((a, b) => b.id - a.id).slice(0, 6);
       } else {
         filtered = filtered.filter((board) => {
           const boardCategory = board.category
