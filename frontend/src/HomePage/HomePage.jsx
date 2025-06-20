@@ -1,27 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import BoardList from './BoardList';
-import CreateBoard from './CreateBoard';
+import React, { useState } from "react";
+import Header from "./Header";
+import Search from "./Search";
+import Categories from "./Categories";
+import CreateBoard from "./CreateBoard";
+import BoardList from "./BoardList";
+import Footer from "./Footer";
+import boardsData from "../data/data.js";
 
 export default function HomePage() {
-  const [boards, setBoards] = useState([]);
+  const [boards, setBoards] = useState(boardsData);
 
-  // Fetch boards from backend
-  useEffect(() => {
-    fetch('http://localhost:4000/boards')
-      .then(res => res.json())
-      .then(data => setBoards(data))
-      .catch(console.error);
-  }, []);
   // refresh list after creating a new board
   const addBoard = (newBoard) => {
-    setBoards(prev => [newBoard, ...prev]);
+    setBoards((prev) => [newBoard, ...prev]);
+  };
+
+  // remove board from state after deletion
+  const deleteBoard = (boardId) => {
+    setBoards((prev) => prev.filter((board) => board.id !== boardId));
   };
 
   return (
     <div>
-      <h1>Kudos Boards</h1>
+      <Header />
+      <Search />
+      <Categories />
       <CreateBoard onBoardCreated={addBoard} />
-      <BoardList boards={boards} />
+      <BoardList boards={boards} onDeleteBoard={deleteBoard} />
+      <Footer />
     </div>
   );
 }

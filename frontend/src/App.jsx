@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './HomePage/HomePage';
-import BoardPage from './BoardPage/BoardPage';
+import HomePage from './HomePage/HomePage.jsx';
+import BoardPage from './BoardPage/BoardPage.jsx';
 
 export default function App() {
   return (
