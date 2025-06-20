@@ -7,9 +7,9 @@
 }
 
 .category-button {
-  background-color: #fafbfc;
-  color: #24292e;
-  border: 1px solid #1b1f2326;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   height: 30px;
   padding: 0 12px;
@@ -19,18 +19,18 @@
 }
 
 .category-button:hover {
-  background-color: #ffffff;
+  background-color: var(--input-bg);
   transform: scale(1.05);
 }
 
 .category-button.active {
-  background-color: #007bff;
+  background-color: var(--button-bg);
   color: white;
-  border-color: #007bff;
+  border-color: var(--button-bg);
   font-weight: bold;
 }
 
 .category-button.active:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+  background-color: var(--button-hover);
+  border-color: var(--button-hover);
 }
