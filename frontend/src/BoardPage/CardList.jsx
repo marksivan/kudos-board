@@ -1,30 +1,14 @@
-import './CardList.css';
-import Card from './Card';
+import React from 'react';
 
-
-function CardList() {
+export default function CardList({ cards }) {
   return (
-    <div className="card">
-            <div className='card-image'>
-                <img src="	https://picsum.photos/200/300?random=129" alt="" />
-            </div>
-
-            <div className='card-message'>
-                <p>This is a sample text</p>
-            </div>
-
-            <div className='board-category'>
-                <p>Inspiration</p>
-            </div>
-
-            <div className='board-operations'>
-                <button className='view-board'>View Board</button>
-                <button className='delete-board'>Delete board</button>
-
-            </div>
-    </div>
-
-  )
+    <ul>
+      {cards.map(card => (
+        <li key={card.id} style={{ marginBottom: '1rem' }}>
+          <p>{card.message}</p>
+          {card.gifUrl && <img src={card.gifUrl} alt="kudos gif" />}
+        </li>
+      ))}
+    </ul>
+  );
 }
-
-export default CardList;
