@@ -1,5 +1,4 @@
 .board {
-  border: 3px solid #000;
   height: 450px;
   width: 300px;
   text-align: center;
@@ -9,6 +8,7 @@
   box-sizing: border-box;
   transition: 0.2s ease-in-out;
   margin-bottom: 100px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .board:hover {
@@ -39,4 +39,12 @@
   padding: 8px 12px;
   cursor: pointer;
 }
-
+.delete-board{
+  color: white;
+  background-color: teal;
+  border-radius: 10px;
+  border: none
+}
+.delete-board:hover{
+  background-color: rgb(1, 96, 96);
+}
