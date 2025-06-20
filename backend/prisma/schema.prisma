@@ -3,14 +3,17 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Board {
-  id      Int     @id @default(autoincrement())
-  title   String
-  cards   Card[]
+  id        Int     @id @default(autoincrement())
+  title     String
+  category  String
+  author    String?
+  image     String?
+  cards     Card[]
   createdAt DateTime @default(now())
 }
 

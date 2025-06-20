@@ -7,6 +7,9 @@ export default function CreateBoard({ onBoardCreated }) {
   const [category, setCategory] = useState("");
   const [author, setAuthor] = useState("");
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const categories = ["thank you", "inspiration", "celebration", "general"];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -18,6 +21,7 @@ export default function CreateBoard({ onBoardCreated }) {
     setCategory("");
     setAuthor("");
     setErrors({});
+    setIsSubmitting(false);
   };
 
   const validateForm = () => {
@@ -35,26 +39,34 @@ export default function CreateBoard({ onBoardCreated }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
       return;
     }
 
-    // Generate a new ID (using timestamp + random number for uniqueness)
-    const newId = Date.now() + Math.floor(Math.random() * 1000);
+    setIsSubmitting(true);
 
-    const newBoard = {
-      id: newId,
-      title: title.trim(),
-      category: category.toLowerCase(),
-      author: author.trim() || "Anonymous",
-      image: `https://picsum.photos/200/300?random=${newId}`,
-    };
+    try {
+      const boardData = {
+        title: title.trim(),
+        category: category.trim(),
+      };
 
-    onBoardCreated(newBoard);
-    closeModal();
+      // Add author if provided
+      if (author.trim()) {
+        boardData.author = author.trim();
+      }
+
+      await onBoardCreated(boardData);
+      closeModal();
+    } catch (error) {
+      console.error("Error creating board:", error);
+      setErrors({ submit: "Failed to create board. Please try again." });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -83,6 +95,7 @@ export default function CreateBoard({ onBoardCreated }) {
                   onChange={(e) => setTitle(e.target.value)}
                   className={errors.title ? "error" : ""}
                   placeholder="Enter board title"
+                  disabled={isSubmitting}
                 />
                 {errors.title && (
                   <span className="error-message">{errors.title}</span>
@@ -96,11 +109,14 @@ export default function CreateBoard({ onBoardCreated }) {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   className={errors.category ? "error" : ""}
+                  disabled={isSubmitting}
                 >
                   <option value="">Select a category</option>
-                  <option value="celebration">Celebration</option>
-                  <option value="thank you">Thank You</option>
-                  <option value="inspiration">Inspiration</option>
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    </option>
+                  ))}
                 </select>
                 {errors.category && (
                   <span className="error-message">{errors.category}</span>
@@ -115,19 +131,31 @@ export default function CreateBoard({ onBoardCreated }) {
                   value={author}
                   onChange={(e) => setAuthor(e.target.value)}
                   placeholder="Enter author name (optional)"
+                  disabled={isSubmitting}
                 />
               </div>
+
+              {errors.submit && (
+                <div className="form-group">
+                  <span className="error-message">{errors.submit}</span>
+                </div>
+              )}
 
               <div className="form-actions">
                 <button
                   type="button"
                   className="cancel-btn"
                   onClick={closeModal}
+                  disabled={isSubmitting}
                 >
                   Cancel
                 </button>
-                <button type="submit" className="submit-btn">
-                  Create Board
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Creating..." : "Create Board"}
                 </button>
               </div>
             </form>

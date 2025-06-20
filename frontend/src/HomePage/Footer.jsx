@@ -3,9 +3,7 @@ import './Footer.css'
 function Footer(){
     return(
         <div className="footer">
-            <p>Footer</p>
-
-
+            <p>MST 2025</p>
         </div>
     )
  }

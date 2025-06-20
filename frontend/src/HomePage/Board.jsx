@@ -9,6 +9,7 @@ function Board({ board, onViewBoard, onDeleteBoard }) {
 
       <div className="board-message">
         <h3>{board.title}</h3>
+        {board.author && <p className="board-author">by {board.author}</p>}
       </div>
 
       <div className="board-category">

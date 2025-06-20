@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { giphyAPI } from "../services/api";
 import "./CreateCard.css";
 
-const GIPHY_API_KEY = "OOfQ2ZSuvy5djAbsgWolwhB6Zxf9nN6k";
-
-export default function CreateCard({ boardId, onCardCreated }) {
+export default function CreateCard({ onCardCreated }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [message, setMessage] = useState("");
-  const [author, setAuthor] = useState("");
   const [gifSearch, setGifSearch] = useState("");
   const [gifResults, setGifResults] = useState([]);
   const [selectedGif, setSelectedGif] = useState(null);
   const [errors, setErrors] = useState({});
   const [isSearching, setIsSearching] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Search Giphy API directly
+  // Search GIFs using backend API
   useEffect(() => {
     if (!gifSearch.trim()) {
       setGifResults([]);
@@ -21,22 +20,16 @@ export default function CreateCard({ boardId, onCardCreated }) {
     }
 
     setIsSearching(true);
-    const timeout = setTimeout(() => {
-      fetch(
-        `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(
-          gifSearch
-        )}&limit=12&rating=g`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setGifResults(data.data || []);
-          setIsSearching(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching GIFs:", error);
-          setGifResults([]);
-          setIsSearching(false);
-        });
+    const timeout = setTimeout(async () => {
+      try {
+        const data = await giphyAPI.search(gifSearch);
+        setGifResults(data.data || []);
+      } catch (error) {
+        console.error("Error fetching GIFs:", error);
+        setGifResults([]);
+      } finally {
+        setIsSearching(false);
+      }
     }, 500);
 
     return () => clearTimeout(timeout);
@@ -49,11 +42,11 @@ export default function CreateCard({ boardId, onCardCreated }) {
   const closeModal = () => {
     setIsModalOpen(false);
     setMessage("");
-    setAuthor("");
     setGifSearch("");
     setGifResults([]);
     setSelectedGif(null);
     setErrors({});
+    setIsSubmitting(false);
   };
 
   const validateForm = () => {
@@ -71,27 +64,29 @@ export default function CreateCard({ boardId, onCardCreated }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
       return;
     }
 
-    // Generate a new ID (using timestamp + random number for uniqueness)
-    const newId = Date.now() + Math.floor(Math.random() * 1000);
+    setIsSubmitting(true);
 
-    const newCard = {
-      id: newId,
-      boardId: boardId,
-      message: message.trim(),
-      gifUrl: selectedGif.images.fixed_height.url,
-      upvotes: 0,
-      author: author.trim() || "Anonymous",
-    };
+    try {
+      const cardData = {
+        message: message.trim(),
+        gifUrl: selectedGif.images.fixed_height.url,
+      };
 
-    onCardCreated(newCard);
-    closeModal();
+      await onCardCreated(cardData);
+      closeModal();
+    } catch (error) {
+      console.error("Error creating card:", error);
+      setErrors({ submit: "Failed to create card. Please try again." });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -127,17 +122,6 @@ export default function CreateCard({ boardId, onCardCreated }) {
               </div>
 
               <div className="form-group">
-                <label htmlFor="author">Author</label>
-                <input
-                  type="text"
-                  id="author"
-                  value={author}
-                  onChange={(e) => setAuthor(e.target.value)}
-                  placeholder="Enter your name (optional)"
-                />
-              </div>
-
-              <div className="form-group">
                 <label htmlFor="gifSearch">Search GIFs *</label>
                 <input
                   type="text"
@@ -145,6 +129,7 @@ export default function CreateCard({ boardId, onCardCreated }) {
                   value={gifSearch}
                   onChange={(e) => setGifSearch(e.target.value)}
                   placeholder="Search for a GIF..."
+                  disabled={isSubmitting}
                 />
                 {errors.gif && (
                   <span className="error-message">{errors.gif}</span>
@@ -174,16 +159,27 @@ export default function CreateCard({ boardId, onCardCreated }) {
                 </div>
               )}
 
+              {errors.submit && (
+                <div className="form-group">
+                  <span className="error-message">{errors.submit}</span>
+                </div>
+              )}
+
               <div className="form-actions">
                 <button
                   type="button"
                   className="cancel-btn"
                   onClick={closeModal}
+                  disabled={isSubmitting}
                 >
                   Cancel
                 </button>
-                <button type="submit" className="submit-btn">
-                  Add Card
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Adding..." : "Add Card"}
                 </button>
               </div>
             </form>
