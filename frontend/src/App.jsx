@@ -1,25 +1,15 @@
-import './App.css'
-import Header from './HomePage/Header.jsx'
-import Footer from './HomePage/Footer.jsx'
-import BoardList from './HomePage/BoardList.jsx'
-import Search from './HomePage/Search.jsx'
-import CreateBoard from './HomePage/CreateBoard.jsx'
-import Categories from './HomePage/Categories.jsx'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './HomePage/HomePage';
+import BoardPage from './BoardPage/BoardPage';
 
-
-function App(){
-   return(
-       <div className="App">
-           <Header/>
-           <Search/>
-           <Categories/>
-           <CreateBoard/>
-           <BoardList/>
-           <Footer/>
-
-       </div>
-   )
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/boards/:id" element={<BoardPage />} />
+      </Routes>
+    </Router>
+  );
 }
-
-
-export default App;
