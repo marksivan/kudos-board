@@ -10,26 +10,11 @@ export default function BoardList({ boards, onDeleteBoard }) {
     navigate(`/boards/${boardId}`);
   };
 
-  const handleDeleteBoard = async (boardId) => {
+  const handleDeleteBoard = (boardId) => {
     if (window.confirm("Are you sure you want to delete this board?")) {
-      try {
-        const response = await fetch(
-          `http://localhost:4000/boards/${boardId}`,
-          {
-            method: "DELETE",
-          }
-        );
-
-        if (response.ok) {
-          // Call the parent component's delete handler to update the state
-          if (onDeleteBoard) {
-            onDeleteBoard(boardId);
-          }
-        } else {
-          console.error("Failed to delete board");
-        }
-      } catch (error) {
-        console.error("Error deleting board:", error);
+      // Call the parent component's delete handler to update the state
+      if (onDeleteBoard) {
+        onDeleteBoard(boardId);
       }
     }
   };
