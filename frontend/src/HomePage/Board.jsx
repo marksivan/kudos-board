@@ -9,7 +9,6 @@ function Board({ board, onViewBoard, onDeleteBoard }) {
 
       <div className="board-message">
         <h3>{board.title}</h3>
-        <p>{board.description || "No description available"}</p>
       </div>
 
       <div className="board-category">

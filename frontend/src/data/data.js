@@ -35,6 +35,18 @@ const boards = [
       category: "celebration",
       image: "https://picsum.photos/200/300?random=237",
     },
+    {
+        id: 7,
+        title: "Daily Motivation",
+        category: "inspiration",
+        image: "https://picsum.photos/200/300?random=220",
+      },
+      {
+        id: 8,
+        title: "Team Celebration 🎉",
+        category: "celebration",
+        image: "	https://picsum.photos/200/300?random=231",
+      },
   ];
 
   export default boards;

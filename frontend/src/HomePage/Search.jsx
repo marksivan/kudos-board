@@ -1,25 +1,59 @@
+import React, { useState } from "react";
+import "./Search.css";
 
-import './Search.css'
+function Search({ onSearch, onClear }) {
+  const [searchQuery, setSearchQuery] = useState("");
 
-function Search(){
-    return(
-        <div className="search-section">
-            <div className="search-bar">
-                <input type="text" name="" id="" placeholder="Search boards..." />
-            </div>
+  const handleSearch = () => {
+    onSearch(searchQuery);
+  };
 
-            <div className="search-button">
-                <button className='button'>Search</button>
-            </div>
+  const handleClear = () => {
+    setSearchQuery("");
+    onClear();
+  };
 
-            <div className="clear-button">
-                <button className='button'>Clear</button>
-            </div>
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
 
-        </div>
-    )
- }
+    // If input is cleared, show all boards
+    if (value === "") {
+      onClear();
+    }
+  };
 
+  return (
+    <div className="search-section">
+      <div className="search-bar">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          placeholder="Search boards..."
+        />
+      </div>
 
- export default Search;
+      <div className="search-button">
+        <button className="button" onClick={handleSearch}>
+          Search
+        </button>
+      </div>
+
+      <div className="clear-button">
+        <button className="button" onClick={handleClear}>
+          Clear
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default Search;

@@ -1,40 +1,41 @@
 .board {
-    border: 3px solid #000;
-    height: 400px;
-    width: 300px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    box-sizing: border-box;
-    transition: 0.2s ease-in-out;
-  }
+  border: 3px solid #000;
+  height: 450px;
+  width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: 0.2s ease-in-out;
+  margin-bottom: 100px;
+}
 
-  .board:hover{
-    transform: scale(1.03);
-  }
+.board:hover {
+  transform: scale(1.03);
+}
 
-  .board-image img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
+.board-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
 
-  .board-message {
-    margin: 10px 0;
-  }
+.board-message {
+  margin: 10px 0;
+}
 
-  .board-category {
-    margin-bottom: 10px;
-  }
+.board-category {
+  margin-bottom: 10px;
+}
 
-  .board-operations {
-    display: flex;
-    justify-content: space-around;
-    margin-top: auto;
-  }
+.board-operations {
+  display: flex;
+  justify-content: space-around;
+  margin-top: auto;
+}
 
-  .board-operations button {
-    padding: 8px 12px;
-    cursor: pointer;
-  }
+.board-operations button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
