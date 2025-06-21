@@ -98,6 +98,9 @@ app.delete("/boards/:id", async (req, res) => {
 app.get("/giphy", async (req, res) => {
   const q = req.query.q || "kudos";
   try {
+    console.log("Giphy API Key:", process.env.GIPHY_KEY ? "Present" : "Missing");
+    console.log("Search query:", q);
+
     const response = await axios.get("https://api.giphy.com/v1/gifs/search", {
       params: {
         api_key: process.env.GIPHY_KEY,
@@ -105,9 +108,16 @@ app.get("/giphy", async (req, res) => {
         limit: 10,
       },
     });
+
+    console.log("Giphy API response status:", response.status);
     res.json(response.data);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch GIFs" });
+    console.error("Giphy API error:", err.response?.data || err.message);
+    console.error("Error status:", err.response?.status);
+    res.status(500).json({
+      error: "Failed to fetch GIFs",
+      details: err.response?.data || err.message
+    });
   }
 });
 
