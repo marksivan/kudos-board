@@ -5,6 +5,7 @@ Submitted by: **MARK SIVAN TAMAKLOE**
 
 Deployed Application (**required**): [Kudos Board Deployed Site](https://kudos-board-2-1l6l.onrender.com/)
 
+
 ### Application Features
 
 #### CORE FEATURES
