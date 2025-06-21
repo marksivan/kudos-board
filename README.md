@@ -80,9 +80,9 @@ Deployed Application (**required**): [Kudos Board Deployed Site](https://kudos-b
 - [x] **Delete Card**
   - [x] Users can delete cards.
   - [x] When the user clicks the delete button for a card, the card disappears from the grid of cards.
-- [ ] **Deployment**
-  - [ ] Website is deployed via Render.
-  - [ ] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: For ease of grading, please use the deployed version of your website when creating your walkthrough.
+- [x] **Deployment**
+  - [x] Website is deployed via Render.
+  - [x] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: For ease of grading, please use the deployed version of your website when creating your walkthrough.
 
 ####  Stretch Features
 
@@ -98,22 +98,22 @@ Deployed Application (**required**): [Kudos Board Deployed Site](https://kudos-b
       - [ ] Message body
       - [ ] Author (if specified)
   - [ ] Users can add multiple comments to a single card.
-- [ ] **Dark Mode**
-  - [ ] Users can toggle between light mode and dark mode using a button displayed on the:
-    - [ ] Home Page
-    - [ ] Board Pages
-  - [ ] When the button is clicked, the color theme switches to the opposite of the current mode.
-  - [ ] When dark mode is enabled:
-    - [ ] Text and icons use a light color
-    - [ ] The background uses a dark color
-    - [ ] Color contrast has at least a 4.5:1 ratio using this [color contrast checker](https://webaim.org/resources/contrastchecker/)
-  - [ ] When light mode is enabled:
-    - [ ] Text and icons use a dark color
-    - [ ] The background uses a light color
-    - [ ] Color contrast has at least a 4.5:1 ratio using this [color contrast checker](https://webaim.org/resources/contrastchecker/)
-  - [ ] The chosen mode (light or dark) persists when navigating from home page to board pages and vice versa.
-  - [ ] When the user first visits the site the theme defaults to light mode.
-  - [ ] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: To ease the grading process, please use the [color contrast checker](https://webaim.org/resources/contrastchecker/) to demonstrate to the grading team that text and background colors on your website have appropriate contrast in both light and dark mode. The Contrast Ratio should be above 4.5:1 and should have a green box surrounding it.
+- [x] **Dark Mode**
+  - [x] Users can toggle between light mode and dark mode using a button displayed on the:
+    - [x] Home Page
+    - [x] Board Pages
+  - [x] When the button is clicked, the color theme switches to the opposite of the current mode.
+  - [x] When dark mode is enabled:
+    - [x] Text and icons use a light color
+    - [x] The background uses a dark color
+    - [x] Color contrast has at least a 4.5:1 ratio using this [color contrast checker](https://webaim.org/resources/contrastchecker/)
+  - [x] When light mode is enabled:
+    - [x] Text and icons use a dark color
+    - [x] The background uses a light color
+    - [x] Color contrast has at least a 4.5:1 ratio using this [color contrast checker](https://webaim.org/resources/contrastchecker/)
+  - [x] The chosen mode (light or dark) persists when navigating from home page to board pages and vice versa.
+  - [x] When the user first visits the site the theme defaults to light mode.
+  - [x] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: To ease the grading process, please use the [color contrast checker](https://webaim.org/resources/contrastchecker/) to demonstrate to the grading team that text and background colors on your website have appropriate contrast in both light and dark mode. The Contrast Ratio should be above 4.5:1 and should have a green box surrounding it.
 - [ ] **Pinned Cards**
   - [ ] Users can pin a card to the top of the board.
   - [ ] A Pin button is displayed on each card.
@@ -136,7 +136,14 @@ Deployed Application (**required**): [Kudos Board Deployed Site](https://kudos-b
 
 ### Walkthrough Video
 
-`ADD_EMBEDDED_CODE_HERE`
+`<div>
+    <a href="https://www.loom.com/share/7b6ea96dbfd3404b8d5cc80361739fbf">
+      <p>Videos | Library | Loom - 20 June 2025 - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/7b6ea96dbfd3404b8d5cc80361739fbf">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/7b6ea96dbfd3404b8d5cc80361739fbf-6b0430504b9b7774-full-play.gif">
+    </a>
+  </div>`
 
 ### Reflection
 
